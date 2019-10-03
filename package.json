@@ -18,12 +18,12 @@
     },
     "homepage": "https://github.com/behaviorbot/request-info#readme",
     "devDependencies": {
-        "eslint-plugin-import": "^2.7.0",
-        "expect": "^1.20.2",
-        "smee-client": "^1.0.1",
-        "nodemon": "^1.17.2",
-        "mocha": "^3.4.2",
-        "standard": "^10.0.3"
+        "eslint-plugin-import": "^2.18.2",
+        "expect": "^24.9.0",
+        "mocha": "^6.2.1",
+        "nodemon": "^1.19.3",
+        "smee-client": "^1.1.0",
+        "standard": "^14.3.1"
     },
     "standard": {
         "env": [
@@ -35,7 +35,8 @@
         "npm": ">= 5.3.0"
     },
     "dependencies": {
-        "probot": "^7.2.0",
-        "probot-config": "^0.2.0"
+        "@chadfawcett/probot-serverless-now": "^1.0.0",
+        "probot": "^9.5.0",
+        "probot-config": "^1.1.0"
     }
 }

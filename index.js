@@ -4,6 +4,17 @@ const PullRequestBodyChecker = require('./lib/PullRequestBodyChecker')
 const IssueBodyChecker = require('./lib/IssueBodyChecker')
 const getConfig = require('probot-config')
 
+const renameProp = (
+  oldProp,
+  newProp,
+  { [oldProp]: old, ...others }
+) => {
+  return {
+    [newProp]: old,
+    ...others
+  }
+}
+
 module.exports = app => {
   app.on('installation_repositories.added', learningLabWelcome)
   app.on(['pull_request.opened', 'issues.opened'], receive)
@@ -23,7 +34,7 @@ module.exports = app => {
     }
 
     try {
-      const config = await getConfig(context, 'config.yml', defaultConfig)
+      const config = await getConfig(context, 'request-info.yml', defaultConfig)
 
       if (!config.requestInfoOn[eventSrc]) {
         return
@@ -53,7 +64,7 @@ module.exports = app => {
       }
       if ((!body || badTitle || badBody) && notExcludedUser) {
         const comment = getComment(config.requestInfoReplyComment, defaultConfig.requestInfoReplyComment)
-        context.github.issues.createComment(context.issue({body: comment}))
+        await context.github.issues.createComment(renameProp('number', 'issue_number', context.issue({body: comment})))
 
         if (config.requestInfoLabelToAdd) {
           // Add label if there is one listed in the yaml file
